@@ -31,6 +31,7 @@ contract Fallback {
         payable(owner).transfer(address(this).balance);
     }
 
+    // @audit if a person sends ether directly to the contract, they can become the owner if they have contributed before
     receive() external payable {
         require(msg.value > 0 && contributions[msg.sender] > 0);
         owner = msg.sender;
